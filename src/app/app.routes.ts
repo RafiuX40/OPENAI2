@@ -1,25 +1,13 @@
 import { Routes } from '@angular/router';
+import { LoginPage } from './login/login.page';
+import { ForgotPasswordPage } from './forgot-password/forgot-password.page';
+import { SignUpPage } from './sign-up/sign-up.page';
+import { HomePage } from './home/home.page';
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
-  },
-  {
-    path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
-  },
-  {
-    path: 'sign-up',
-    loadComponent: () => import('./sign-up/sign-up.page').then( m => m.SignUpPage)
-  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginPage },
+  { path: 'forgot-password', component: ForgotPasswordPage },
+  { path: 'sign-up', component: SignUpPage },
+  { path: 'home', component: HomePage },
 ];

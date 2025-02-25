@@ -1,20 +1,12 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content class="p-4">
+  <div class="max-w-md mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Generar pregunta</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="question" class="block text-sm font-medium text-gray-700">Pregunta</label>
+        <textarea id="question" name="question" class="mt-1 p-2 w-full border rounded-md" required></textarea>
+      </div>
+      <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md">Generar</button>
+    </form>
   </div>
 </ion-content>
