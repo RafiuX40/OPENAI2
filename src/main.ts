@@ -5,6 +5,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { firebaseConfig } from './environments/environment';
 
+
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 

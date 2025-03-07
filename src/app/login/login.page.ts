@@ -1,30 +1,40 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { IonContent } from '@ionic/angular/standalone';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { Auth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, RouterModule],
+  imports: [IonicModule, CommonModule, RouterModule, ReactiveFormsModule], // <-- Agregar módulos necesarios
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss']
 })
 export class LoginPage {
-  loginForm: FormGroup;
+  auth = inject(Auth);
+  router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+  });
+
+  async onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    const { email, password } = this.loginForm.value;
+    try {
+      await signInWithEmailAndPassword(this.auth, email!, password!);
+      this.router.navigate(['/home']);
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+    }
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Formulario válido', this.loginForm.value);
-    } else {
-      console.log('Formulario inválido');
-    }
+  async logout() {
+    await signOut(this.auth);
+    this.router.navigate(['/login']);
   }
 }
